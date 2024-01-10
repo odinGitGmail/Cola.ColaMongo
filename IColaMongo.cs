@@ -1,28 +1,7 @@
-### Cola.ColaMongo 框架
+using MongoDB.Driver;
 
-[![Version](https://flat.badgen.net/nuget/v/Cola.ColaMongo?label=version)](https://github.com/odinGitGmail/Cola.ColaMongo) [![download](https://flat.badgen.net/nuget/dt/Cola.ColaMongo)](https://www.nuget.org/packages/Cola.ColaMongo) [![commit](https://flat.badgen.net/github/last-commit/odinGitGmail/Cola.ColaMongo)](https://flat.badgen.net/github/last-commit/odinGitGmail/Cola.ColaMongo) [![Blog](https://flat.badgen.net/static/blog/odinsam.com)](https://odinsam.com)
+namespace Cola.ColaMongo;
 
-##### 注入
-
-注入可以通过config配置文件形式注入（推荐）、也可以通过代码直接注入
-
-```json 配置文件
-{
-  "ColaMongoDB": {
-    "ConnName": "mongodb://dbName:pwd@ipaddress:port",
-    "DatabaseName": "testDb"
-  }
-}
-```
-
-```csharp
-// 注入 ColaSqlSugar
-builder.Services.AddColaMongo();
-```
-
-##### 已经默认实现的接口
-
-```csharp
 public interface IColaMongo
 {
     /// <summary>
@@ -246,20 +225,3 @@ public interface IColaMongo
     /// <param name="notDrop">not Drop collectionNames</param>
     void DeleteCollections(List<string>? collectionNames = null, List<string> notDrop = null);
 }
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
