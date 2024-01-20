@@ -1,4 +1,4 @@
-using Cola.Core.Utils.Constants;
+using Cola.CoreUtils.Constants;
 using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
