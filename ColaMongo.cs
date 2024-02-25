@@ -66,20 +66,12 @@ public class ColaMongo : IColaMongo
         /// </summary>
         /// <param name="t">添加的实体</param>
         /// <param name="collName">_collName</param>
-        /// <param name="T">T</param>
         /// <returns>bool</returns>
         public bool Add<T>(T t, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                client.InsertOne(t);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            var client = _database.GetCollection<T>(collName);
+            client.InsertOne(t);
+            return true;
         }
 
         #endregion
@@ -90,6 +82,7 @@ public class ColaMongo : IColaMongo
         /// 异步添加一条数据
         /// </summary>
         /// <param name="t">添加的实体</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<bool> AddAsync<T>(T t, string collName)
         {
@@ -113,6 +106,7 @@ public class ColaMongo : IColaMongo
         /// 批量插入
         /// </summary>
         /// <param name="t">实体集合</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public bool InsertMany<T>(List<T> t, string collName)
         {
@@ -122,7 +116,7 @@ public class ColaMongo : IColaMongo
                 client.InsertMany(t);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -136,6 +130,7 @@ public class ColaMongo : IColaMongo
         /// 异步批量插入
         /// </summary>
         /// <param name="t">实体集合</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<bool> InsertManyAsync<T>(List<T> t, string collName)
         {
@@ -160,18 +155,12 @@ public class ColaMongo : IColaMongo
         /// </summary>
         /// <param name="update">要修改的字段</param>
         /// <param name="filter">修改条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public UpdateResult UpdateOne<T>(UpdateDefinition<T> update, FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return client.UpdateOne(filter, update);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return client.UpdateOne(filter, update);
         }
 
         #endregion
@@ -183,19 +172,13 @@ public class ColaMongo : IColaMongo
         /// </summary>
         /// <param name="update">要修改的字段</param>
         /// <param name="filter">修改条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<UpdateResult> UpdateOneAsync<T>(UpdateDefinition<T> update, FilterDefinition<T> filter,
             string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return await client.UpdateOneAsync(filter, update);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return await client.UpdateOneAsync(filter, update);
         }
 
         #endregion
@@ -207,18 +190,12 @@ public class ColaMongo : IColaMongo
         /// </summary>
         /// <param name="update">要修改的字段</param>
         /// <param name="filter">修改条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public UpdateResult UpdateManay<T>(UpdateDefinition<T> update, FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return client.UpdateMany(filter, update);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return client.UpdateMany(filter, update);
         }
 
         #endregion
@@ -230,19 +207,13 @@ public class ColaMongo : IColaMongo
         /// </summary>
         /// <param name="update">要修改的字段</param>
         /// <param name="filter">修改条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<UpdateResult> UpdateManayAsync<T>(UpdateDefinition<T> update, FilterDefinition<T> filter,
             string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return await client.UpdateManyAsync(filter, update);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return await client.UpdateManyAsync(filter, update);
         }
 
         #endregion
@@ -254,18 +225,12 @@ public class ColaMongo : IColaMongo
         /// 删除多条数据
         /// </summary>
         /// <param name="filter">删除的条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public DeleteResult DeleteOne<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return client.DeleteOne(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return client.DeleteOne(filter);
         }
 
         #endregion
@@ -276,18 +241,12 @@ public class ColaMongo : IColaMongo
         /// 异步删除多条数据
         /// </summary>
         /// <param name="filter">删除的条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<DeleteResult> DeleteOneAsync<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return await client.DeleteOneAsync(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return await client.DeleteOneAsync(filter);
         }
 
         #endregion
@@ -298,18 +257,12 @@ public class ColaMongo : IColaMongo
         /// 删除多条数据
         /// </summary>
         /// <param name="filter">删除的条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public DeleteResult DeleteMany<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return client.DeleteMany(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return client.DeleteMany(filter);
         }
 
         #endregion
@@ -320,18 +273,12 @@ public class ColaMongo : IColaMongo
         /// 异步删除多条数据
         /// </summary>
         /// <param name="filter">删除的条件</param>
+        /// <param name="collName"></param>
         /// <returns>DeleteResult</returns>
         public async Task<DeleteResult> DeleteManyAsync<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return await client.DeleteManyAsync(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return await client.DeleteManyAsync(filter);
         }
 
         #endregion
@@ -345,15 +292,15 @@ public class ColaMongo : IColaMongo
         /// <param name="collName">collName</param>
         /// <param name="field">field</param>
         /// <returns>T</returns>
-        public T FindOne<T>(FilterDefinition<T> filter, string collName, string[] field = null)
+        public T? FindOne<T>(FilterDefinition<T> filter, string collName, string[]? field = null)
         {
             var result = FindList(filter, collName, field);
-            if (result.Count != 0 && result.Count > 1)
+            if (result!=null && result.Count != 0 && result.Count > 1)
             {
                 throw new Exception("查询数据超过多条");
             }
 
-            return result.Count == 0 ? default : result[0];
+            return result!.Count == 0 ? default : result[0];
         }
 
         #endregion
@@ -367,7 +314,7 @@ public class ColaMongo : IColaMongo
         /// <param name="collName">collName</param>
         /// <param name="field">field</param>
         /// <returns>T</returns>
-        public async Task<T> FindOneAsync<T>(FilterDefinition<T> filter, string collName, string[] field = null)
+        public async Task<T?> FindOneAsync<T>(FilterDefinition<T> filter, string collName, string[]? field = null)
         {
             var result = await FindListAsync(filter, collName, field);
             return result.SingleOrDefault();
@@ -380,45 +327,29 @@ public class ColaMongo : IColaMongo
         /// <summary>
         /// 根据id查询一条数据
         /// </summary>
-        /// <param name="id">objectid</param>
+        /// <param name="id">object id</param>
+        /// <param name="isObjectId"></param>
         /// <param name="field">要查询的字段，不写时查询全部</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
-        public T FindOne<T>(string id, string collName, bool isObjectId = true, string[] field = null)
+        public T FindOne<T>(string id, string collName, bool isObjectId = true, string[]? field = null)
         {
-            try
+            var client = _database.GetCollection<T>(collName);
+            FilterDefinition<T> filter;
+            filter = isObjectId ? Builders<T>.Filter.Eq("_id", new ObjectId(id)) : Builders<T>.Filter.Eq("_id", id);
+
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                var client = _database.GetCollection<T>(collName);
-                FilterDefinition<T> filter;
-                if (isObjectId)
-                {
-                    filter = Builders<T>.Filter.Eq("_id", new ObjectId(id));
-                }
-                else
-                {
-                    filter = Builders<T>.Filter.Eq("_id", id);
-                }
-
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    return client.Find(filter).FirstOrDefault<T>();
-                }
-
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
-
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
-                return client.Find(filter).Project<T>(projection).FirstOrDefault<T>();
+                return client.Find(filter).FirstOrDefault<T>();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //制定查询字段
+            var fieldList = field.Select(t => Builders<T>.Projection.Include(t.ToString())).ToList();
+
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+            return client.Find(filter).Project<T>(projection).FirstOrDefault<T>();
         }
 
         #endregion
@@ -435,42 +366,23 @@ public class ColaMongo : IColaMongo
         /// <typeparam name="T">T</typeparam>
         /// <returns>Task T</returns>
         /// <exception cref="Exception">Exception</exception>
-        public async Task<T> FindOneAsync<T>(string id, string collName, bool isObjectId = true, string[] field = null)
+        public async Task<T> FindOneAsync<T>(string id, string collName, bool isObjectId = true, string[]? field = null)
         {
-            try
+            var client = _database.GetCollection<T>(collName);
+            var filter = isObjectId ? Builders<T>.Filter.Eq("_id", new ObjectId(id)) : Builders<T>.Filter.Eq("_id", id);
+
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                var client = _database.GetCollection<T>(collName);
-                FilterDefinition<T> filter;
-                if (isObjectId)
-                {
-                    filter = Builders<T>.Filter.Eq("_id", new ObjectId(id));
-                }
-                else
-                {
-                    filter = Builders<T>.Filter.Eq("_id", id);
-                }
-
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    return await client.Find(filter).FirstOrDefaultAsync();
-                }
-
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
-
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
-                return await client.Find(filter).Project<T>(projection).FirstOrDefaultAsync();
+                return await client.Find(filter).FirstOrDefaultAsync();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //制定查询字段
+            var fieldList = field.Select(t => Builders<T>.Projection.Include(t.ToString())).ToList();
+
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+            return await client.Find(filter).Project<T>(projection).FirstOrDefaultAsync();
         }
 
         #endregion
@@ -481,51 +393,32 @@ public class ColaMongo : IColaMongo
         /// 查询集合
         /// </summary>
         /// <param name="filter">查询条件</param>
+        /// <param name="collName"></param>
         /// <param name="field">要查询的字段,不写时查询全部</param>
         /// <param name="sort">要排序的字段</param>
         /// <returns></returns>
-        public List<T> FindList<T>(FilterDefinition<T> filter, string collName, string[] field = null,
-            SortDefinition<T> sort = null)
+        public List<T>? FindList<T>(FilterDefinition<T> filter, string collName, string[]? field = null,
+            SortDefinition<T>? sort = null)
         {
-            try
+            if (string.IsNullOrEmpty(collName))
+                return null;
+            var client = _database.GetCollection<T>(collName);
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                if (string.IsNullOrEmpty(collName))
-                    return null;
-                var client = _database.GetCollection<T>(collName);
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    if (sort == null)
-                    {
-                        return client.FindAsync(filter).Result.ToList();
-                        return client.Find(filter).ToList();
-                    }
-
+                return sort == null ? client.FindAsync(filter).Result.ToList() :
                     //进行排序
-                    return client.Find(filter).Sort(sort).ToList();
-                }
+                    client.Find(filter).Sort(sort).ToList();
+            }
 
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
+            //制定查询字段
+            var fieldList = field.Select(t => Builders<T>.Projection.Include(t.ToString())).ToList();
 
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
-                if (sort == null)
-                {
-                    return client.Find(filter).Project<T>(projection).ToList();
-                }
-
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+            return sort == null ? client.Find(filter).Project<T>(projection).ToList() :
                 //排序查询
-                return client.Find(filter).Sort(sort).Project<T>(projection).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                client.Find(filter).Sort(sort).Project<T>(projection).ToList();
         }
 
         #endregion
@@ -536,48 +429,42 @@ public class ColaMongo : IColaMongo
         /// 异步查询集合
         /// </summary>
         /// <param name="filter">查询条件</param>
+        /// <param name="collName"></param>
         /// <param name="field">要查询的字段,不写时查询全部</param>
         /// <param name="sort">要排序的字段</param>
         /// <returns></returns>
-        public async Task<List<T>> FindListAsync<T>(FilterDefinition<T> filter, string collName, string[] field = null,
-            SortDefinition<T> sort = null)
+        public async Task<List<T>> FindListAsync<T>(FilterDefinition<T> filter, string collName, string[]? field = null,
+            SortDefinition<T>? sort = null)
         {
-            try
+            var client = _database.GetCollection<T>(collName);
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                var client = _database.GetCollection<T>(collName);
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    //return await client.Find(new BsonDocument()).ToListAsync();
-                    if (sort == null)
-                    {
-                        return await client.Find(filter).ToListAsync();
-                    }
-
-                    return await client.Find(filter).Sort(sort).ToListAsync();
-                }
-
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
-
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
+                //return await client.Find(new BsonDocument()).ToListAsync();
                 if (sort == null)
                 {
-                    return await client.Find(filter).Project<T>(projection).ToListAsync();
+                    return await client.Find(filter).ToListAsync();
                 }
 
-                //排序查询
-                return await client.Find(filter).Sort(sort).Project<T>(projection).ToListAsync();
+                return await client.Find(filter).Sort(sort).ToListAsync();
             }
-            catch (Exception ex)
+
+            //制定查询字段
+            var fieldList = new List<ProjectionDefinition<T>>();
+            for (var i = 0; i < field.Length; i++)
             {
-                throw ex;
+                fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
             }
+
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+            if (sort == null)
+            {
+                return await client.Find(filter).Project<T>(projection).ToListAsync();
+            }
+
+            //排序查询
+            return await client.Find(filter).Sort(sort).Project<T>(projection).ToListAsync();
         }
 
         #endregion
@@ -591,54 +478,40 @@ public class ColaMongo : IColaMongo
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="count">总条数</param>
+        /// <param name="collName"></param>
         /// <param name="field">要查询的字段,不写时查询全部</param>
         /// <param name="sort">要排序的字段</param>
         /// <returns></returns>
         public List<T> FindListByPage<T>(FilterDefinition<T> filter, int pageIndex, int pageSize, out long count,
             string collName,
-            string[] field = null, SortDefinition<T> sort = null)
+            string[]? field = null, SortDefinition<T>? sort = null)
         {
-            try
+            var client = _database.GetCollection<T>(collName);
+            count = client.CountDocuments(filter);
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                var client = _database.GetCollection<T>(collName);
-                count = client.CountDocuments(filter);
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    if (sort == null)
-                    {
-                        return client.Find(filter).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
-                    }
-
+                return sort == null ? client.Find(filter).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList() :
                     //进行排序
-                    return client.Find(filter).Sort(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
-                }
-
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
-
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
-
-                //不排序
-                if (sort == null)
-                {
-                    return client.Find(filter).Project<T>(projection).Skip((pageIndex - 1) * pageSize).Limit(pageSize)
-                        .ToList();
-                }
-
-                //排序查询
-                return client.Find(filter).Sort(sort).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
-                    .Limit(pageSize).ToList();
+                    client.Find(filter).Sort(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
             }
-            catch (Exception ex)
+
+            //制定查询字段
+            var fieldList = field.Select(t => Builders<T>.Projection.Include(t.ToString())).ToList();
+
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+
+            //不排序
+            if (sort == null)
             {
-                throw ex;
+                return client.Find(filter).Project<T>(projection).Skip((pageIndex - 1) * pageSize).Limit(pageSize)
+                    .ToList();
             }
+
+            //排序查询
+            return client.Find(filter).Sort(sort).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
+                .Limit(pageSize).ToList();
         }
 
         #endregion
@@ -651,54 +524,44 @@ public class ColaMongo : IColaMongo
         /// <param name="filter">查询条件</param>
         /// <param name="pageIndex">当前页</param>
         /// <param name="pageSize">页容量</param>
+        /// <param name="collName"></param>
         /// <param name="field">要查询的字段,不写时查询全部</param>
         /// <param name="sort">要排序的字段</param>
         /// <returns></returns>
         public async Task<List<T>> FindListByPageAsync<T>(FilterDefinition<T> filter, int pageIndex, int pageSize,
             string collName,
-            string[] field = null, SortDefinition<T> sort = null)
+            string[]? field = null, SortDefinition<T>? sort = null)
         {
-            try
+            var client = _database.GetCollection<T>(collName);
+            //不指定查询字段
+            if (field == null || field.Length == 0)
             {
-                var client = _database.GetCollection<T>(collName);
-                //不指定查询字段
-                if (field == null || field.Length == 0)
-                {
-                    if (sort == null)
-                    {
-                        return await client.Find(filter).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
-                    }
-
-                    //进行排序
-                    return await client.Find(filter).Sort(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize)
-                        .ToListAsync();
-                }
-
-                //制定查询字段
-                var fieldList = new List<ProjectionDefinition<T>>();
-                for (var i = 0; i < field.Length; i++)
-                {
-                    fieldList.Add(Builders<T>.Projection.Include(field[i].ToString()));
-                }
-
-                var projection = Builders<T>.Projection.Combine(fieldList);
-                fieldList?.Clear();
-
-                //不排序
                 if (sort == null)
                 {
-                    return await client.Find(filter).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
-                        .Limit(pageSize).ToListAsync();
+                    return await client.Find(filter).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
                 }
 
-                //排序查询
-                return await client.Find(filter).Sort(sort).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
+                //进行排序
+                return await client.Find(filter).Sort(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize)
+                    .ToListAsync();
+            }
+
+            //制定查询字段
+            var fieldList = field.Select(t => Builders<T>.Projection.Include(t.ToString())).ToList();
+
+            var projection = Builders<T>.Projection.Combine(fieldList);
+            fieldList?.Clear();
+
+            //不排序
+            if (sort == null)
+            {
+                return await client.Find(filter).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
                     .Limit(pageSize).ToListAsync();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            //排序查询
+            return await client.Find(filter).Sort(sort).Project<T>(projection).Skip((pageIndex - 1) * pageSize)
+                .Limit(pageSize).ToListAsync();
         }
 
         #endregion
@@ -709,18 +572,12 @@ public class ColaMongo : IColaMongo
         /// 根据条件获取总数
         /// </summary>
         /// <param name="filter">条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public long Count<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return client.CountDocuments(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return client.CountDocuments(filter);
         }
 
         #endregion
@@ -731,18 +588,12 @@ public class ColaMongo : IColaMongo
         /// 异步根据条件获取总数
         /// </summary>
         /// <param name="filter">条件</param>
+        /// <param name="collName"></param>
         /// <returns></returns>
         public async Task<long> CountAsync<T>(FilterDefinition<T> filter, string collName)
         {
-            try
-            {
-                var client = _database.GetCollection<T>(collName);
-                return await client.CountDocumentsAsync(filter);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var client = _database.GetCollection<T>(collName);
+            return await client.CountDocumentsAsync(filter);
         }
 
         #endregion
@@ -753,27 +604,24 @@ public class ColaMongo : IColaMongo
         /// <param name="collectionNames">drop collectionNames</param>
         /// <param name="notDrop">not Drop collectionNames</param>
         /// <exception cref="Exception">Exception</exception>
-        public void DeleteCollections(List<string>? collectionNames = null, List<string> notDrop = null)
+        public void DeleteCollections(List<string>? collectionNames = null, List<string>? notDrop = null)
         {
-            try
-            {
-                var lst = collectionNames ??
-                          _database.ListCollections().ToList().Select(c => c["name"].ToString()).ToList()!;
+            var lst = collectionNames ??
+                      _database.ListCollections().ToList().Select(c => c["name"].ToString()).ToList()!;
 
-                foreach (var collection in lst)
+            foreach (var collection in lst)
+            {
+                if (notDrop == null)
                 {
-                    if (notDrop != null)
+                    _database.DropCollection(collection);;
+                }
+                else
+                {
+                    if (!notDrop.Contains(collection))
                     {
-                        if (!notDrop.Contains(collection))
-                        {
-                            _database.DropCollection(collection);
-                        }
+                        _database.DropCollection(collection);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 }

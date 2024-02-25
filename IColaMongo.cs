@@ -100,6 +100,7 @@ public interface IColaMongo
     /// 删除多条数据
     /// </summary>
     /// <param name="filter">删除的条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>DeleteResult</returns>
     DeleteResult DeleteOne<T>(FilterDefinition<T> filter, string collName);
 
@@ -107,6 +108,7 @@ public interface IColaMongo
     /// 异步删除多条数据
     /// </summary>
     /// <param name="filter">删除的条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>DeleteResult</returns>
     Task<DeleteResult> DeleteOneAsync<T>(FilterDefinition<T> filter, string collName);
 
@@ -114,6 +116,7 @@ public interface IColaMongo
     /// 删除多条数据
     /// </summary>
     /// <param name="filter">删除的条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>DeleteResult</returns>
     DeleteResult DeleteMany<T>(FilterDefinition<T> filter, string collName);
 
@@ -121,6 +124,7 @@ public interface IColaMongo
     /// 异步删除多条数据
     /// </summary>
     /// <param name="filter">删除的条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>DeleteResult</returns>
     Task<DeleteResult> DeleteManyAsync<T>(FilterDefinition<T> filter, string collName);
 
@@ -131,7 +135,7 @@ public interface IColaMongo
     /// <param name="collName">collName</param>
     /// <param name="field">field</param>
     /// <returns>T</returns>
-    T FindOne<T>(FilterDefinition<T> filter, string collName, string[] field = null);
+    T? FindOne<T>(FilterDefinition<T> filter, string collName, string[]? field = null);
 
     /// <summary>
     /// 根据id查询一条数据
@@ -140,42 +144,49 @@ public interface IColaMongo
     /// <param name="collName">collName</param>
     /// <param name="field">field</param>
     /// <returns>T</returns>
-    Task<T> FindOneAsync<T>(FilterDefinition<T> filter, string collName, string[] field = null);
+    Task<T?> FindOneAsync<T>(FilterDefinition<T> filter, string collName, string[]? field = null);
 
     /// <summary>
     /// 根据id查询一条数据
     /// </summary>
     /// <param name="id">objectid</param>
+    /// <param name="collName">collName</param>
+    /// <param name="isObjectId">isObjectId</param>
     /// <param name="field">要查询的字段，不写时查询全部</param>
     /// <returns>T</returns>
-    T FindOne<T>(string id, string collName, bool isObjectId = true, string[] field = null);
+    T FindOne<T>(string id, string collName, bool isObjectId = true, string[]? field = null);
 
     /// <summary>
     /// 异步根据id查询一条数据
     /// </summary>
     /// <param name="id">objectid</param>
+    /// <param name="collName">collName</param>
+    /// <param name="isObjectId">isObjectId</param>
+    /// <param name="field">field</param>
     /// <returns>T</returns>
-    Task<T> FindOneAsync<T>(string id, string collName, bool isObjectId = true, string[] field = null);
+    Task<T> FindOneAsync<T>(string id, string collName, bool isObjectId = true, string[]? field = null);
 
     /// <summary>
     /// 查询集合
     /// </summary>
     /// <param name="filter">查询条件</param>
+    /// <param name="collName"></param>
     /// <param name="field">要查询的字段,不写时查询全部</param>
     /// <param name="sort">要排序的字段</param>
     /// <returns>List T</returns>
-    List<T> FindList<T>(FilterDefinition<T> filter, string collName, string[] field = null,
-        SortDefinition<T> sort = null);
+    List<T>? FindList<T>(FilterDefinition<T> filter, string collName, string[]? field = null,
+        SortDefinition<T>? sort = null);
 
     /// <summary>
     /// 异步查询集合
     /// </summary>
     /// <param name="filter">查询条件</param>
+    /// <param name="collName">collName</param>
     /// <param name="field">要查询的字段,不写时查询全部</param>
     /// <param name="sort">要排序的字段</param>
     /// <returns>List T</returns>
-    Task<List<T>> FindListAsync<T>(FilterDefinition<T> filter, string collName, string[] field = null,
-        SortDefinition<T> sort = null);
+    Task<List<T>> FindListAsync<T>(FilterDefinition<T> filter, string collName, string[]? field = null,
+        SortDefinition<T>? sort = null);
 
     /// <summary>
     /// 分页查询集合
@@ -184,12 +195,13 @@ public interface IColaMongo
     /// <param name="pageIndex">当前页</param>
     /// <param name="pageSize">页容量</param>
     /// <param name="count">总条数</param>
+    /// <param name="collName">collName</param>
     /// <param name="field">要查询的字段,不写时查询全部</param>
     /// <param name="sort">要排序的字段</param>
     /// <returns>List T</returns>
     List<T> FindListByPage<T>(FilterDefinition<T> filter, int pageIndex, int pageSize, out long count,
         string collName,
-        string[] field = null, SortDefinition<T> sort = null);
+        string[]? field = null, SortDefinition<T>? sort = null);
 
     /// <summary>
     /// 异步分页查询集合
@@ -197,17 +209,19 @@ public interface IColaMongo
     /// <param name="filter">查询条件</param>
     /// <param name="pageIndex">当前页</param>
     /// <param name="pageSize">页容量</param>
+    /// <param name="collName">collName</param>
     /// <param name="field">要查询的字段,不写时查询全部</param>
     /// <param name="sort">要排序的字段</param>
     /// <returns>List T</returns>
     Task<List<T>> FindListByPageAsync<T>(FilterDefinition<T> filter, int pageIndex, int pageSize,
         string collName,
-        string[] field = null, SortDefinition<T> sort = null);
+        string[]? field = null, SortDefinition<T>? sort = null);
 
     /// <summary>
     /// 根据条件获取总数
     /// </summary>
     /// <param name="filter">条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>long</returns>
     long Count<T>(FilterDefinition<T> filter, string collName);
 
@@ -215,6 +229,7 @@ public interface IColaMongo
     /// 异步根据条件获取总数
     /// </summary>
     /// <param name="filter">条件</param>
+    /// <param name="collName">collName</param>
     /// <returns>long</returns>
     Task<long> CountAsync<T>(FilterDefinition<T> filter, string collName);
 
@@ -223,5 +238,5 @@ public interface IColaMongo
     /// </summary>
     /// <param name="collectionNames">drop collectionNames</param>
     /// <param name="notDrop">not Drop collectionNames</param>
-    void DeleteCollections(List<string>? collectionNames = null, List<string> notDrop = null);
+    void DeleteCollections(List<string>? collectionNames = null, List<string>? notDrop = null);
 }
